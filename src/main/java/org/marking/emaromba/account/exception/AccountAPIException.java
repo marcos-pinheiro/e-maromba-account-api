@@ -18,7 +18,6 @@ public class AccountAPIException extends Exception {
 		super(message, throwable);
 	}
 	
-	
-	
+
 	private static final long serialVersionUID = 1L;
 }

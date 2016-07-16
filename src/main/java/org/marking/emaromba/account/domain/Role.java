@@ -1,6 +1,6 @@
-package org.marking.emaromba.account.entity;
+package org.marking.emaromba.account.domain;
 
-import static org.marking.emaromba.account.entity.Permission.*;
+import static org.marking.emaromba.account.domain.Permission.*;
 
 import java.io.Serializable;
 import java.util.Set;

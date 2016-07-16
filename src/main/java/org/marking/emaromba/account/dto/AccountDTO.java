@@ -1,24 +1,27 @@
-package org.marking.emaromba.account.controller.dto;
+package org.marking.emaromba.account.dto;
 
 import java.io.Serializable;
+
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.marking.emaromba.types.Password;
 
 import lombok.Data;
 
 @Data
-public final class UserDTO implements Serializable {
-	
-	@NotEmpty @Email
-	private String username;
+public final class AccountDTO implements Serializable {
 	
 	@NotEmpty @Length(min = 2, max = 60)
 	private String name;
 	
-	@NotEmpty @Length(min = 6, max = 32)
-	private String password;
+	@NotEmpty @Email
+	private String email;
+	
+	@NotNull
+	private Password password;
 	
 	@NotEmpty
 	private String role;

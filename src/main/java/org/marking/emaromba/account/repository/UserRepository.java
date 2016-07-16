@@ -2,7 +2,7 @@ package org.marking.emaromba.account.repository;
 
 import java.util.Optional;
 
-import org.marking.emaromba.account.entity.User;
+import org.marking.emaromba.account.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

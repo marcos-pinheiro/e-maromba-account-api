@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 0.0.1
  *
  */
-@ResponseStatus(HttpStatus.CONFLICT)
-public final class UsernameUnavailableException extends AccountAPIException {
+@ResponseStatus(HttpStatus.FORBIDDEN)
+public final class InvalidCredentialsException extends AccountAPIException {
 
-	public UsernameUnavailableException() {
-		super("Username unavailable");
+	public InvalidCredentialsException() {
+		super("Invalid Credentials");
 	}
 
 	private static final long serialVersionUID = 1L;

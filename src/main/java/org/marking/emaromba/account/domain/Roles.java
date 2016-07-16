@@ -1,6 +1,7 @@
-package org.marking.emaromba.account.entity;
+package org.marking.emaromba.account.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,12 +17,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
+import com.google.common.collect.ImmutableSet;
+
+import lombok.EqualsAndHashCode;
+
 /**
  * @author Marcos Pinheiro
  * @since 0.0.1
  *
  */
-@Entity @Table(name = "role")
+@Entity @Table(name = "role") @EqualsAndHashCode
 public final class Roles implements Serializable {	
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +35,9 @@ public final class Roles implements Serializable {
 	@Enumerated(EnumType.STRING) @Column(name = "name")
 	private final Role role;
 	
-	@ElementCollection @JoinTable(name = "permission", joinColumns = @JoinColumn(name = "id"))
+	@ElementCollection(fetch = FetchType.EAGER) @JoinTable(name = "permission", joinColumns = @JoinColumn(name = "id"))
 	@Enumerated(EnumType.STRING) @Column(name = "name")
-	private Set<Permission> permissions;	
+	private Set<Permission> permissions;
 	
 	Roles() {
 		this(null, null);
@@ -46,6 +52,7 @@ public final class Roles implements Serializable {
 		this.role = role;
 		this.permissions = role.getDefaultPermissions();
 	}
+	
 	
 	public boolean isAdmin() {
 		return permissions.equals(Role.ADMIN.getDefaultPermissions());
@@ -64,13 +71,27 @@ public final class Roles implements Serializable {
 	}
 	
 	public Iterable<Permission> getPermissions() {
-		return permissions;
+		return listPermissions();
+	}
+	
+	public Set<Permission> listPermissions() {
+		
+		if(collectionIsNullOrEmpty(permissions)) {
+			this.reset();
+			return permissions;
+		}
+		
+		return ImmutableSet.copyOf(permissions);
 	}
 	
 	public Role getRole() {
 		return role;
 	}
 	
+	
+	private static final boolean collectionIsNullOrEmpty(Collection<?> collection) {
+		return collection == null || collection.isEmpty();
+	}
 	
 	private static final long serialVersionUID = 1L;
 }

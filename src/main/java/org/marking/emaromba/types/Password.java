@@ -2,7 +2,12 @@ package org.marking.emaromba.types;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serializable;
+
+import org.marking.emaromba.types.convertes.json.PasswordDeserialize;
 import org.mindrot.jbcrypt.BCrypt;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
 /**
@@ -10,8 +15,9 @@ import org.mindrot.jbcrypt.BCrypt;
  * @since 0.0.1
  *
  */
-public final class Password {
-	
+@JsonDeserialize(using = PasswordDeserialize.class) //JACKSON
+public final class Password implements Serializable {
+
 	private static final int WORKLOAD = 0xC;
 	
 	private final String hashedSecret;
@@ -31,8 +37,8 @@ public final class Password {
 		return new Password(hashedSecret);
 	}
 	
-	public boolean thisIsTheSameSecret(String secret) {
-		return this.hashedSecret.equals(hashPassword(secret));
+	public boolean isEquals(String secret) {
+		return check(secret, this.hashedSecret);
 	}
 	
 	
@@ -45,7 +51,7 @@ public final class Password {
 		if(null == hashedPassword || ! hashedPassword.startsWith("$2a$")) {
 			throw new IllegalArgumentException("Invalid hash provided for comparison");
 		}
-
+		
 		return BCrypt.checkpw(secret, hashedPassword);
 	}
 	
@@ -56,7 +62,7 @@ public final class Password {
 		if(obj == null) return false;
 		if(! (obj instanceof String)) return false;
 		
-		return ((String)obj).equals(this.hashedSecret);
+		return ((Password)obj).isEquals(this.toString());
 	}
 	
 	@Override
@@ -68,4 +74,7 @@ public final class Password {
 	public String toString() {
 		return hashedSecret;
 	}
+	
+	
+	private static final long serialVersionUID = -6508627189492585387L;
 }

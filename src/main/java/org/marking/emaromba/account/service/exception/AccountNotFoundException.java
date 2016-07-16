@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 0.0.1
  *
  */
-@ResponseStatus(HttpStatus.CONFLICT)
-public final class UsernameUnavailableException extends AccountAPIException {
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public final class AccountNotFoundException extends AccountAPIException {
 
-	public UsernameUnavailableException() {
-		super("Username unavailable");
+	public AccountNotFoundException() {
+		super("User account not found");
 	}
 
 	private static final long serialVersionUID = 1L;

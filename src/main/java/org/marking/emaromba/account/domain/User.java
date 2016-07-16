@@ -1,33 +1,35 @@
-package org.marking.emaromba.account.entity;
+package org.marking.emaromba.account.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.marking.emaromba.types.Password;
+import org.marking.emaromba.types.convertes.jpa.PasswordConverter;
+
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Marcos Pinheiro
  * @since 0.0.1
  *
  */
-@Entity @Table(name = "user")
+@Entity @Table(name = "user") @EqualsAndHashCode
 public final class User implements Serializable {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@Transient
-	private Password password;
-	
 	private String name;
 	private String email;
-	private String secret;
+	
+	@Column	@Convert(converter = PasswordConverter.class) //JPA
+	private Password password;
 
 	User() {
 	}
@@ -37,22 +39,13 @@ public final class User implements Serializable {
 	}
 
 	public User(String email, Password password) {
-		this.email = email;
+		this(email);
 		this.password = password;
-		this.secret = this.password.toString();
 	}
 	
-	public User(String email, String password) {
-		this.email = email;
-		this.password = Password.of(password);
-		this.secret = this.password.toString();
-	}
-	
-	public User(String email, String password, String name) {
-		this.email = email;
-		this.password = Password.of(password);
-		this.secret = this.password.toString();
-		this.name  = name;
+	public User(String email, Password password, String name) {
+		this(email, password);
+		this.name = name;
 	}
 	
 
@@ -74,26 +67,15 @@ public final class User implements Serializable {
 	
 	public void setPassword(Password password) {
 		this.password = password;
-		this.secret = this.password.toString();
 	}
 	
 	public void setPassword(String secret) {
 		password = Password.of(secret);
-		this.secret = this.password.toString();
 	}
 	
-	public void setHasedPassword(String hash) {
-		password = Password.ofHashed(hash);
-		this.secret = this.password.toString();
+	public boolean passwordIsEquals(String otherSecret) {
+		return password.isEquals(otherSecret);
 	}
-	
-	public String getHasedPassword() {
-		return secret;
-	}
-	
-	public boolean passwordIsEquals(String otherPassword) {
-		return password.thisIsTheSameSecret(otherPassword);
-	}	
 	
 	private static final long serialVersionUID = 1L;
 }

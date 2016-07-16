@@ -1,8 +1,7 @@
-package org.marking.emaromba.account.entity;
+package org.marking.emaromba.account.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,22 +9,26 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
+
+import static javax.persistence.CascadeType.*;
+
 /**
  * @author Marcos Pinheiro
  * @since 0.0.1
  *
  */
-@Entity @Table(name = "account")
-public class UserAccount implements Serializable {
+@Entity @Table(name = "account") @EqualsAndHashCode
+public final class UserAccount implements Serializable {
 	
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = ALL)
 	private User user;
 	 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {PERSIST, MERGE, REFRESH, DETACH}, orphanRemoval = true)
 	private Roles roles;
 	
 	private boolean inactive;
@@ -61,8 +64,8 @@ public class UserAccount implements Serializable {
 		this.roles = new Roles(role);
 	}
 	
-	public void changeRoleWithSamePermissions(Role role) {
-		this.roles = new Roles(role);
+	public void changeRoles(Roles roles) {
+		this.roles = roles;
 	}
 	
 	public boolean isInactive() {

@@ -1,7 +1,10 @@
 package org.marking.emaromba.account.service;
 
-import org.marking.emaromba.account.entity.Roles;
-import org.marking.emaromba.account.entity.UserAccount;
+import org.marking.emaromba.account.domain.Roles;
+import org.marking.emaromba.account.domain.UserAccount;
+import org.marking.emaromba.account.dto.CredentialsDTO;
+import org.marking.emaromba.account.service.exception.AccountNotFoundException;
+import org.marking.emaromba.account.service.exception.InvalidCredentialsException;
 import org.marking.emaromba.account.service.exception.UsernameUnavailableException;
 
 /**
@@ -13,8 +16,12 @@ public interface UserAccountService {
 	
 	void register(UserAccount account) throws UsernameUnavailableException;
 	
-	void changeRole(long id, Roles roles);
+	UserAccount changeRole(long id, Roles roles) throws AccountNotFoundException;
 	
-	void inactivate(long id);
+	UserAccount signByUserAndPassword(CredentialsDTO user) throws InvalidCredentialsException;
+	
+	UserAccount getByUserId(long id) throws AccountNotFoundException;
+	
+	void inactivate(long id) throws AccountNotFoundException;
 	
 }

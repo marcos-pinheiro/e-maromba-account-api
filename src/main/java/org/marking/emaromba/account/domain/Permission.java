@@ -1,4 +1,4 @@
-package org.marking.emaromba.account.entity;
+package org.marking.emaromba.account.domain;
 
 import java.io.Serializable;
 
