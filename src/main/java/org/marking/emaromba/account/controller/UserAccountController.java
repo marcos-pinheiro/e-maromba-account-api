@@ -2,7 +2,7 @@ package org.marking.emaromba.account.controller;
 
 import java.net.URI;
 
-import org.marking.emaromba.account.dao.AuthenticationServiceDao;
+import org.marking.emaromba.account.domain.AuthenticatedUserAccount;
 import org.marking.emaromba.account.domain.Role;
 import org.marking.emaromba.account.domain.Roles;
 import org.marking.emaromba.account.domain.User;
@@ -32,7 +32,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class UserAccountController {
 	
 	private UserAccountService userAccountService;
-	private AuthenticationServiceDao authenticationService;
 	
 	UserAccountController() {
 	}
@@ -69,13 +68,12 @@ public class UserAccountController {
 	@RequestMapping(value = "/accounts/sign", method = RequestMethod.POST)
 	protected ResponseEntity<UserAccount> sign(@RequestBody CredentialsDTO credentials) throws InvalidCredentialsException {
 		
-		final UserAccount account = userAccountService.signByUserAndPassword(credentials);
-		final String token = authenticationService.authenticateUserAccount(account);
+		final AuthenticatedUserAccount authenticatedAccount = userAccountService.signByUserAndPassword(credentials);
 		
 		return ResponseEntity
 				.ok()
-				.header("Authorization", token)
-				.body(account);
+				.header("Authorization", authenticatedAccount.getToken())
+				.body(authenticatedAccount.getAccount());
 	}
 	
 	
@@ -85,6 +83,7 @@ public class UserAccountController {
 	 * @return
 	 * @throws AccountNotFoundException
 	 */
+	//@Cacheable("account") 
 	@RequestMapping(value = "/accounts/{id}", method = RequestMethod.GET)
 	protected ResponseEntity<UserAccount> getById(@PathVariable long id) throws AccountNotFoundException {
 		
@@ -128,10 +127,5 @@ public class UserAccountController {
 	@Autowired
 	void setUserAccountService(UserAccountService userAccountService) {
 		this.userAccountService = userAccountService;
-	}
-	
-	@Autowired
-	void setAuthenticationService(AuthenticationServiceDao authenticationService) {
-		this.authenticationService = authenticationService;
 	}
 }

@@ -2,6 +2,8 @@ package org.marking.emaromba.account.service;
 
 import java.util.Optional;
 
+import org.marking.emaromba.account.dao.AuthenticationServiceDao;
+import org.marking.emaromba.account.domain.AuthenticatedUserAccount;
 import org.marking.emaromba.account.domain.Roles;
 import org.marking.emaromba.account.domain.UserAccount;
 import org.marking.emaromba.account.dto.CredentialsDTO;
@@ -19,21 +21,22 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 0.0.1
  *
  */
-@Service("userAccountService")
-@Transactional
+@Transactional @Service("userAccountService")
 public class UserAccountServiceImpl implements UserAccountService {
 
 	private UserAccountRepository accountRepository;
 	private UserRepository userRepository;
+	private AuthenticationServiceDao authenticationService;
 	
 	UserAccountServiceImpl() {
 		super();
 	}
 	
 	@Autowired
-	public UserAccountServiceImpl(UserAccountRepository accountRepository, UserRepository userRepository) {
+	public UserAccountServiceImpl(UserAccountRepository accountRepository, UserRepository userRepository, AuthenticationServiceDao authenticationService) {
 		this.accountRepository = accountRepository;
 		this.userRepository = userRepository;
+		this.authenticationService = authenticationService;
 	}
 	
 	
@@ -74,8 +77,9 @@ public class UserAccountServiceImpl implements UserAccountService {
 	}
 
 	@Override
-	public UserAccount signByUserAndPassword(CredentialsDTO credentials) throws InvalidCredentialsException {
+	public AuthenticatedUserAccount signByUserAndPassword(CredentialsDTO credentials) throws InvalidCredentialsException {
 		
+		//Find in database
 		final Optional<UserAccount> optional = accountRepository.findByEmail(credentials.getEmail());		
 		final UserAccount account = optional.orElseThrow(InvalidCredentialsException::new);
 		
@@ -83,7 +87,10 @@ public class UserAccountServiceImpl implements UserAccountService {
 			throw new InvalidCredentialsException();
 		}
 		
-		return account;
+		//Register and rescue a valid token	from Auth API	
+		final String token = authenticationService.authenticateUserAccount(account);
+		
+		return AuthenticatedUserAccount.of(account, token);
 	}
 
 }
