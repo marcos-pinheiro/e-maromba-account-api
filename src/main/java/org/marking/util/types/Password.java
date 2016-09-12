@@ -1,10 +1,10 @@
-package org.marking.emaromba.types;
+package org.marking.util.types;
 
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
 
-import org.marking.emaromba.types.convertes.json.PasswordDeserialize;
+import org.marking.util.convertes.json.PasswordDeserialize;
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

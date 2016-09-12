@@ -1,8 +1,8 @@
-package org.marking.emaromba.types.convertes.json;
+package org.marking.util.convertes.json;
 
 import java.io.IOException;
 
-import org.marking.emaromba.types.Password;
+import org.marking.util.types.Password;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

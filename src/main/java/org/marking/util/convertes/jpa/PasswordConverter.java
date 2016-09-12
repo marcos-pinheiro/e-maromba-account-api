@@ -1,9 +1,9 @@
-package org.marking.emaromba.types.convertes.jpa;
+package org.marking.util.convertes.jpa;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import org.marking.emaromba.types.Password;
+import org.marking.util.types.Password;
 
 @Converter
 public class PasswordConverter implements AttributeConverter<Password, String>{

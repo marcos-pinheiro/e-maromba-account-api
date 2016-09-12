@@ -31,10 +31,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 public class UserAccountController {
 	
+	//private static final Logger LOGGER = LogManager.getLogger(UserAccountController.class);
+	
 	private UserAccountService userAccountService;
+	
 	
 	UserAccountController() {
 	}
+	
 	
 	/**
 	 * 

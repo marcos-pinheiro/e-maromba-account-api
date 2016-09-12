@@ -1,6 +1,6 @@
-package org.marking.emaromba.types.convertes.spring;
+package org.marking.util.convertes.spring;
 
-import org.marking.emaromba.types.Password;
+import org.marking.util.types.Password;
 import org.springframework.core.convert.converter.Converter;
 
 public class StringToPasswordConverter implements Converter<String, Password> {

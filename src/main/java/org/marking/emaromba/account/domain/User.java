@@ -10,8 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.marking.emaromba.types.Password;
-import org.marking.emaromba.types.convertes.jpa.PasswordConverter;
+import org.marking.util.convertes.jpa.PasswordConverter;
+import org.marking.util.types.Password;
 
 import lombok.EqualsAndHashCode;
 

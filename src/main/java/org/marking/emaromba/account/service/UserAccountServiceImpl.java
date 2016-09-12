@@ -12,6 +12,7 @@ import org.marking.emaromba.account.repository.UserRepository;
 import org.marking.emaromba.account.service.exception.AccountNotFoundException;
 import org.marking.emaromba.account.service.exception.InvalidCredentialsException;
 import org.marking.emaromba.account.service.exception.UsernameUnavailableException;
+import org.marking.emaromba.account.util.monitor.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,7 +71,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 		accountRepository.save(account);
 	}
 	
-	@Override
+	@Override @Monitor
 	public UserAccount getByUserId(long id) throws AccountNotFoundException {
 		return Optional.ofNullable(accountRepository.findActivesById(id))
 				.orElseThrow(AccountNotFoundException::new);
