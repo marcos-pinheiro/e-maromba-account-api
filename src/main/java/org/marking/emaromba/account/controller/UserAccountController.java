@@ -13,6 +13,7 @@ import org.marking.emaromba.account.service.UserAccountService;
 import org.marking.emaromba.account.service.exception.AccountNotFoundException;
 import org.marking.emaromba.account.service.exception.InvalidCredentialsException;
 import org.marking.emaromba.account.service.exception.UsernameUnavailableException;
+import org.marking.emaromba.account.util.monitor.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -47,6 +48,7 @@ public class UserAccountController {
 	 * @return
 	 * @throws UsernameUnavailableException
 	 */
+	@Monitor
 	@RequestMapping(value = "/accounts", method = RequestMethod.POST)
 	protected ResponseEntity<UserAccount> create(@Validated @RequestBody AccountDTO accountDTO, UriComponentsBuilder uriBuilder) throws UsernameUnavailableException {
 		

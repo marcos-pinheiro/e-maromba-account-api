@@ -26,7 +26,7 @@ public class ReponseTimeMonitorService {
 			final long finish = System.nanoTime();
 			final long totalInMillis = (finish - start) / 1000000;
 			
-			LOGGER.trace("Execution of " + joinPoint.getSignature().getName() + " in " + totalInMillis + "ms");
+			LOGGER.info("Execution of " + joinPoint.getSignature().getName() + " in " + totalInMillis + "ms");
 		}	
 	}
 }
