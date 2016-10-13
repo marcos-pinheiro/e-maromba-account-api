@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 0.0.1
  *
  */
-@Transactional @Service("userAccountService")
+@Service("userAccountService") @Transactional
 public class UserAccountServiceImpl implements UserAccountService {
 
 	private UserAccountRepository accountRepository;

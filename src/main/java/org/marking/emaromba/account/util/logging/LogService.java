@@ -7,22 +7,30 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Component;
 
-@Aspect @Component
+@Aspect
 public class LogService {
 	
 	@Pointcut("execution(* org.marking.emaromba.account.controller.*.*(..))")
-	private void controllers() {}
+	private final void controllers() {
+		throw new UnsupportedOperationException("Method not avaliable for use");
+	}
 	
 	@Pointcut("execution(* org.marking.emaromba.account.service.*.*(..))")
-	private void services() {}
+	private final void services() {
+		throw new UnsupportedOperationException("Method not avaliable for use");
+	}
 	
 	@Pointcut("execution(* org.marking.emaromba.account.repository.*.*(..))")
-	private void repositories() {}
+	private final void repositories() {
+		throw new UnsupportedOperationException("Method not avaliable for use");
+	}
 	
 	@Pointcut("@annotation(org.marking.emaromba.account.util.logging.Log)")
-	private void annotationLog() {}
+	private final void annotationLog() {
+		throw new UnsupportedOperationException("Method not avaliable for use");
+	}
+	
 	
 	@Around("controllers() || services() || annotationLog()")
 	public Object logExecution(ProceedingJoinPoint joinPoint) throws Throwable {
