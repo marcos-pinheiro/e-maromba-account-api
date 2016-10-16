@@ -42,3 +42,6 @@ overridedb.*
 .factorypath
 dump.rdb
 transaction-logs
+mvnw
+mvnw.cmd
+.mvn/
