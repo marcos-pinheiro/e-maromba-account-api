@@ -21,10 +21,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<sonar.language>java</sonar.language>
 	</properties>
 
 	<dependencies>
-	
+
 		<!-- Spring boot dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -36,84 +37,83 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
-				
+
 		<dependency>
-		   <groupId>com.lmax</groupId>
-		   <artifactId>disruptor</artifactId>
-		   <version>3.3.4</version>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>3.3.4</version>
 		</dependency>
-				
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- Google Guava dependency -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>19.0</version>
 		</dependency>
-		
+
 		<!-- BCrypt dependency -->
 		<dependency>
 			<groupId>org.mindrot</groupId>
 			<artifactId>jbcrypt</artifactId>
 			<version>0.3m</version>
 		</dependency>
-		
+
 		<!-- Lombok dependency -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-		
+
 		<!-- Database dependency -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<!-- Flyway dependency -->
 		<dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-        <dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-	
+
 		<!-- Graylog dependency -->
-		 <dependency>
-	        <groupId>org.graylog2.log4j2</groupId>
-	        <artifactId>log4j2-gelf</artifactId>
-	        <version>1.3.0</version>
-	    </dependency>
-        
+		<dependency>
+			<groupId>org.graylog2.log4j2</groupId>
+			<artifactId>log4j2-gelf</artifactId>
+			<version>1.3.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -123,17 +123,17 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		
+
 		<pluginManagement>
 			<plugins>
-		     	<plugin>
-		       		<groupId>org.codehaus.mojo</groupId>
-		       		<artifactId>sonar-maven-plugin</artifactId>
-		       		<version>2.3</version>
-		    	</plugin>
-    		</plugins>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.1.1</version>
+				</plugin>
+			</plugins>
 		</pluginManagement>
-		
+
 	</build>
 
 	<repositories>
@@ -145,6 +145,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -154,6 +155,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-snapshots</id>
@@ -172,5 +174,4 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
 </project>
